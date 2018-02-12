@@ -54,6 +54,9 @@ public class TestManager : MonoBehaviour
         {
             changeColor();
         }
+        //if (Input.GetKeyDown(KeyCode.G)) Debug.Log("g pressed");
+
+        //if (Input.anyKey) Debug.Log("pressed");
 
     }
 
