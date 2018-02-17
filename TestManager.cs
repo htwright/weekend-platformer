@@ -31,6 +31,8 @@ public class TestManager : MonoBehaviour
     public static event ChangeEnemyColor onEnemyHit;
     public Text scoreText;
     public int count;
+
+
     void Awake()
     {
         _instance = this;
@@ -50,10 +52,10 @@ public class TestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && onEnemyHit != null)
-        {
-            changeColor();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && onEnemyHit != null)
+        //{
+        //    changeColor();
+        //}
         //if (Input.GetKeyDown(KeyCode.G)) Debug.Log("g pressed");
 
         //if (Input.anyKey) Debug.Log("pressed");
@@ -89,8 +91,10 @@ public class TestManager : MonoBehaviour
 
     void updateDamage(EventArgs args)
     {
-        Debug.Log(args.ToString());
+        //Debug.Log(args.ToString());
+
         count += args.Damage;
+        setScore();
     }
 
 }
