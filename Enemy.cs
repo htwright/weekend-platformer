@@ -28,8 +28,7 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         var playerPosition = player.GetComponent<Transform>().position;
-        transform.position = Vector2.MoveTowards(transform.position, playerPosition,
-                                         moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, playerPosition, moveSpeed * Time.deltaTime);
         //GetComponent<Rigidbody2D>().AddForce(new Vector2(moveSpeed, 0f));
     }
 
