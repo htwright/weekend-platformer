@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public int Id { get; set; }
 
 
-    public float moveSpeed = 10f;
+    public float moveSpeed = 5f;
 
     // Use this for initialization
     void Start()
@@ -28,7 +28,12 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         var playerPosition = player.GetComponent<Transform>().position;
-        transform.position = Vector2.MoveTowards(transform.position, playerPosition, moveSpeed * Time.deltaTime);
+        var delta = System.Math.Abs((playerPosition - transform.position).x);
+        //Debug.Log(delta);
+        if(delta < 2f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPosition, moveSpeed * Time.deltaTime);
+        }
         //GetComponent<Rigidbody2D>().AddForce(new Vector2(moveSpeed, 0f));
     }
 
@@ -48,7 +53,7 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.name == "Player")
         {
-            Debug.Log("MARIO'D");
+            //Debug.Log("MARIO'D");
             TakeDamage();
             Destroy(gameObject);
         }
