@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
         var delta = System.Math.Abs((playerPosition - transform.position).x);
         if (delta < aggroRange || aggroed)
         {
-            Debug.Log(delta);
             aggroed = true;
             transform.position = Vector2.MoveTowards(transform.position, playerPosition, moveSpeed * Time.deltaTime);
         }
