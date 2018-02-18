@@ -16,9 +16,10 @@ public class BulletScript : MonoBehaviour {
     {
         player = GameObject.Find("Player");
         inputPosition = Input.mousePosition;
-        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
+        gameObject.tag = "bullet";
+        //Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
 
-        GetComponent<Rigidbody2D>().AddForce(inputPosition);
+        //GetComponent<Rigidbody2D>().AddForce(inputPosition);
 
 	}
 	
@@ -29,13 +30,13 @@ public class BulletScript : MonoBehaviour {
 
     void FixedUpdate()
     {
-
+        transform.position = Vector2.MoveTowards(transform.position, inputPosition, Time.deltaTime * 10);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.name == "Player") return;
-        Destroy(gameObject);
+        if (!(collision.gameObject.name == "Player")) Destroy(gameObject);
     }
+        
 }

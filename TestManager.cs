@@ -30,21 +30,23 @@ public class TestManager : MonoBehaviour
     public delegate void ChangeEnemyColor(Color color, EventArgs eventArgs);
     public static event ChangeEnemyColor onEnemyHit;
     public Text scoreText;
+    public Text healthText;
     public int count;
+    Player player;
 
 
     void Awake()
     {
         _instance = this;
         scoreText = GameObject.Find("Score").GetComponent<Text>();
-
+        healthText = GameObject.Find("Health").GetComponent<Text>();
     }
 
 
     // Use this for initialization
     void Start()
     {
-        count = 0;
+        count = 0;  
         setScore();
         Enemy.onEnemyEvent += updateDamage;
     }
@@ -59,7 +61,8 @@ public class TestManager : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.G)) Debug.Log("g pressed");
 
         //if (Input.anyKey) Debug.Log("pressed");
-
+        player = FindObjectOfType<Player>();
+        healthText.text = string.Format("Health: {0}", player.health.ToString());
     }
 
     EventArgs makeArgs()
@@ -82,7 +85,7 @@ public class TestManager : MonoBehaviour
 
     void setScore()
     {
-        scoreText.text = "Count: " + count.ToString();
+        scoreText.text = "Score: " + count.ToString();
     }
     void incrementScore()
     {

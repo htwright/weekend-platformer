@@ -20,11 +20,6 @@ public class Bullet_Spawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    void FixedUpdate()
-    {
         bool shoot = Input.GetButtonDown("Fire1");
 
         if (shoot)
@@ -32,5 +27,10 @@ public class Bullet_Spawn : MonoBehaviour
             var x = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
 
         }
+
+    }
+
+    void FixedUpdate()
+    {
     }
 }

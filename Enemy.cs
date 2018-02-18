@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        gameObject.tag = "enemy";
         TestManager.onEnemyHit += Damage;
         player = GameObject.Find("Player");
         maxHealth = 10;
@@ -51,7 +52,7 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.name == "Player")
+        if(collision.gameObject.name == "Player" || collision.gameObject.tag == "bullet")
         {
             //Debug.Log("MARIO'D");
             TakeDamage();

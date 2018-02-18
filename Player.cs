@@ -25,6 +25,9 @@ public class Player : MonoBehaviour
     float groundRadius = 1.2f;
     public LayerMask whatIsGround;
 
+    public int health = 20;
+
+
     // Use this for initialization
 
 
@@ -70,34 +73,47 @@ public class Player : MonoBehaviour
     //float jump()
     //{
 
-        //if (Time.frameCount - lastJump <= 60) return 0;
-        //lastJump = Time.frameCount;
-        //return jumpForce * 4;
+    //if (Time.frameCount - lastJump <= 60) return 0;
+    //lastJump = Time.frameCount;
+    //return jumpForce * 4;
 
 
 
-        //if under jump limit return 0
-        //if (jumping)
-        //{
-        //    jumping = false;
-        //    if (jumpList.Count >= 1)
-        //    {
-        //        var lastJump = jumpList[0];
-        //        if (Time.frameCount - lastJump <= 100)
-        //        {
-        //            return 0;
-        //        }
-        //    }
-        //    if (jumpList.Count == jumpLimit && Time.frameCount - jumpList[jumpLimit - 1] > 200) jumpList = new List<int>();
-        //    jumpList.Add(Time.frameCount);
-        //    return jumpForce;
+    //if under jump limit return 0
+    //if (jumping)
+    //{
+    //    jumping = false;
+    //    if (jumpList.Count >= 1)
+    //    {
+    //        var lastJump = jumpList[0];
+    //        if (Time.frameCount - lastJump <= 100)
+    //        {
+    //            return 0;
+    //        }
+    //    }
+    //    if (jumpList.Count == jumpLimit && Time.frameCount - jumpList[jumpLimit - 1] > 200) jumpList = new List<int>();
+    //    jumpList.Add(Time.frameCount);
+    //    return jumpForce;
 
-        //}
-
-        //return 0;
     //}
 
+    //return 0;
+    //}
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "enemy")
+        {
+            takeDamage();
+        }
+    }
+
+    void takeDamage()
+    {
+        gameObject.GetComponent<Renderer>().material.color = Color.red;
+        health--;
+
+    }
 
     void throttleLogs()
     {
