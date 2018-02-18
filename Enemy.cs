@@ -10,32 +10,31 @@ public class Enemy : MonoBehaviour
 
     public int maxHealth { get; set; }
     public int Id { get; set; }
-
-
-    public float moveSpeed = 5f;
+    public int aggroRange = 10;
+    bool aggroed = false;
+    public float moveSpeed = 0.5f;
 
     // Use this for initialization
     void Start()
     {
         gameObject.tag = "enemy";
         TestManager.onEnemyHit += Damage;
-        player = GameObject.Find("Player");
         maxHealth = 10;
         Id = transform.GetInstanceID();
-        //Debug.Log(player);
     }
 
 
     private void FixedUpdate()
     {
-        var playerPosition = player.GetComponent<Transform>().position;
+        player = GameObject.Find("Player");
+        var playerPosition = player.transform.position;
         var delta = System.Math.Abs((playerPosition - transform.position).x);
-        //Debug.Log(delta);
-        if(delta < 2f)
+        if (delta < aggroRange || aggroed)
         {
+            Debug.Log(delta);
+            aggroed = true;
             transform.position = Vector2.MoveTowards(transform.position, playerPosition, moveSpeed * Time.deltaTime);
         }
-        //GetComponent<Rigidbody2D>().AddForce(new Vector2(moveSpeed, 0f));
     }
 
 
@@ -43,9 +42,7 @@ public class Enemy : MonoBehaviour
     void Damage(Color color, EventArgs eventArgs)
     {
 
-        //Debug.Log("Damage Called");
         transform.GetComponent<Renderer>().material.color = color;
-        //Debug.Log(eventArgs.ToString());
         TakeDamage();
 
     }

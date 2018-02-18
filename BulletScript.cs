@@ -15,11 +15,10 @@ public class BulletScript : MonoBehaviour {
 	void Start ()
     {
         player = GameObject.Find("Player");
-        inputPosition = Input.mousePosition;
+        inputPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        inputPosition.x = inputPosition.x * 2;
         gameObject.tag = "bullet";
-        //Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
-
-        //GetComponent<Rigidbody2D>().AddForce(inputPosition);
+        Debug.Log(inputPosition);
 
 	}
 	

@@ -54,13 +54,6 @@ public class TestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space) && onEnemyHit != null)
-        //{
-        //    changeColor();
-        //}
-        //if (Input.GetKeyDown(KeyCode.G)) Debug.Log("g pressed");
-
-        //if (Input.anyKey) Debug.Log("pressed");
         player = FindObjectOfType<Player>();
         healthText.text = string.Format("Health: {0}", player.health.ToString());
     }
@@ -94,8 +87,6 @@ public class TestManager : MonoBehaviour
 
     void updateDamage(EventArgs args)
     {
-        //Debug.Log(args.ToString());
-
         count += args.Damage;
         setScore();
     }

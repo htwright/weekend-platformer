@@ -39,14 +39,12 @@ public class Player : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         initialPosition = rb2d.position;
-        //groundCheck = GetComponent<Transform>("GroundCheck");
     }
 
     void Update()
     {
         if(grounded && Input.GetKeyDown(KeyCode.Space))
         {
-            //Debug.Log("shouldjump");
             grounded = false;
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
         }
@@ -62,43 +60,9 @@ public class Player : MonoBehaviour
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = 0f;
-        //Debug.Log(moveHorizontal);
-
-        //if (Input.GetKey(KeyCode.Space)) moveVertical = jump();
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
         rb2d.AddForce(movement * topSpeed);
     }
-
-
-    //float jump()
-    //{
-
-    //if (Time.frameCount - lastJump <= 60) return 0;
-    //lastJump = Time.frameCount;
-    //return jumpForce * 4;
-
-
-
-    //if under jump limit return 0
-    //if (jumping)
-    //{
-    //    jumping = false;
-    //    if (jumpList.Count >= 1)
-    //    {
-    //        var lastJump = jumpList[0];
-    //        if (Time.frameCount - lastJump <= 100)
-    //        {
-    //            return 0;
-    //        }
-    //    }
-    //    if (jumpList.Count == jumpLimit && Time.frameCount - jumpList[jumpLimit - 1] > 200) jumpList = new List<int>();
-    //    jumpList.Add(Time.frameCount);
-    //    return jumpForce;
-
-    //}
-
-    //return 0;
-    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

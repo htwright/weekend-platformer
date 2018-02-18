@@ -24,7 +24,7 @@ public class Bullet_Spawn : MonoBehaviour
 
         if (shoot)
         {
-            var x = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
+            var x = Instantiate(bullet, spawnPoint.position, Quaternion.identity);
 
         }
 
