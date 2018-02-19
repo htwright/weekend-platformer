@@ -8,18 +8,19 @@ public class Enemy : MonoBehaviour
 
     GameObject player;
 
-    public int maxHealth { get; set; }
+    public int maxHealth = 10;
     public int Id { get; set; }
     public int aggroRange = 10;
     bool aggroed = false;
     public float moveSpeed = 0.5f;
+    int health = 10;
+    int regenFrequency = 180;
 
     // Use this for initialization
     void Start()
     {
         gameObject.tag = "enemy";
         TestManager.onEnemyHit += Damage;
-        maxHealth = 10;
         Id = transform.GetInstanceID();
     }
 
@@ -36,33 +37,47 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(Time.frameCount % regenFrequency == 0)
+        {
+            health += 1;
+        }
+    }
+
 
     // Update is called once per frame
     void Damage(Color color, EventArgs eventArgs)
     {
 
         transform.GetComponent<Renderer>().material.color = color;
-        TakeDamage();
+        TakeDamage(10);
 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.name == "Player" || collision.gameObject.tag == "bullet")
+        if(collision.gameObject.name == "Player")
         {
             //Debug.Log("MARIO'D");
-            TakeDamage();
+            TakeDamage(10);
             Destroy(gameObject);
+        }
+        if(collision.gameObject.tag == "bullet")
+        {
+            TakeDamage(BulletScript.FindObjectOfType<BulletScript>().damage);
         }
     }
 
-    void TakeDamage()
+    void TakeDamage(int damage)
     {
         var args = new EventArgs()
         {
             Damage = maxHealth,
             Id = Id
         };
+        health -= damage;
+        if (health == 0) Destroy(gameObject);
         onEnemyEvent(args);
     }
 

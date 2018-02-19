@@ -16,8 +16,7 @@ public class Player : MonoBehaviour
     public float gravity = 20f;
     public List<int> jumpList = new List<int>();
     public int jumpLimit = 2;
-    bool jumping = false;
-    int lastJump;
+    bool doubleJump = false;
     Vector2 initialPosition;
 
     bool grounded = false;
@@ -26,10 +25,14 @@ public class Player : MonoBehaviour
     public LayerMask whatIsGround;
 
     public int health = 20;
-
-
+    public int maxHealth = 20;
+    public float maxMana = 20f;
+    public float mana;
+    int regenFrequency = 90;
+    
     // Use this for initialization
 
+    
 
     void Awake()
     {
@@ -43,12 +46,25 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(grounded && Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            grounded = false;
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+            jump();
         }
-
+        if(Time.frameCount % regenFrequency == 0)
+        {
+            if (mana < maxMana)
+            {
+                mana += 1.5f;
+            }
+            else
+            {
+                mana = maxMana;
+            }
+            if(health < maxHealth)
+            {
+                health += 1;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -76,6 +92,24 @@ public class Player : MonoBehaviour
     {
         gameObject.GetComponent<Renderer>().material.color = Color.red;
         health--;
+
+    }
+
+    void jump()
+    {
+        if (grounded)
+        {
+            doubleJump = false;
+            grounded = false;
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+
+        } else if (!doubleJump)
+        {
+            //jumpforce at higher levels makes earlier double jumps crazy, but lower levels make later double jumps ineffective.
+            doubleJump = true;
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce/2));
+            mana -= 10f;
+        }
 
     }
 

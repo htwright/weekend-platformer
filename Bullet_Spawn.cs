@@ -22,7 +22,7 @@ public class Bullet_Spawn : MonoBehaviour
     {
         bool shoot = Input.GetButtonDown("Fire1");
 
-        if (shoot)
+        if (shoot && TestManager.Instance.spawnBullet())
         {
             var x = Instantiate(bullet, spawnPoint.position, Quaternion.identity);
 

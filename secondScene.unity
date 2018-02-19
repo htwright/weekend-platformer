@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &65580970
@@ -397,6 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &76673861
@@ -576,6 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &226001513
@@ -709,8 +712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739ee9ce79248c143a0840f14ce30265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  healthText: {fileID: 0}
   count: 0
 --- !u!1001 &293767959
 Prefab:
@@ -862,6 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &453594579
@@ -1238,6 +1240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &870675363
@@ -1372,6 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &1045812621
@@ -1552,6 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &1120071972
@@ -1710,6 +1715,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967039
   health: 20
+  maxHealth: 20
+  maxMana: 20
+  mana: 20
 --- !u!4 &1244677654 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: df4796b594b970842b69211cb0078c5d, type: 3}
@@ -1772,6 +1780,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1268107840889830, guid: 3267b4641b25ded428c64dde8957ff23, type: 2}
   spawnPoint: {fileID: 1194592699}
+--- !u!1 &1271682722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1271682723}
+  - component: {fileID: 1271682725}
+  - component: {fileID: 1271682724}
+  m_Layer: 5
+  m_Name: Mana
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1271682723
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1271682722}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1703335248}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -322.00098, y: 95}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1271682724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1271682722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.016, g: 0, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1271682725
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1271682722}
 --- !u!1001 &1287702413
 Prefab:
   m_ObjectHideFlags: 0
@@ -1972,6 +2054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &1386975077
@@ -2164,6 +2247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7ba2756d29ce84badc17c18d1008d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   aggroRange: 20
   moveSpeed: 10
 --- !u!212 &1491910044
@@ -2393,11 +2477,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1703335248}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 475.7, y: 90}
+  m_AnchoredPosition: {x: -395.5, y: 95}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1571243733
@@ -2658,6 +2742,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1271682723}
   - {fileID: 1988042245}
   - {fileID: 1571243732}
   m_Father: {fileID: 0}
@@ -2679,8 +2764,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739ee9ce79248c143a0840f14ce30265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  healthText: {fileID: 0}
   count: 0
 --- !u!1001 &1748439896
 Prefab:
@@ -2997,11 +3080,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1703335248}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -387.9, y: 90}
+  m_AnchoredPosition: {x: 490, y: 95}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1988042246

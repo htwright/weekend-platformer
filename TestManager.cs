@@ -27,19 +27,22 @@ public class TestManager : MonoBehaviour
     #endregion
 
 
+
     public delegate void ChangeEnemyColor(Color color, EventArgs eventArgs);
     public static event ChangeEnemyColor onEnemyHit;
-    public Text scoreText;
-    public Text healthText;
     public int count;
     Player player;
-
+    Text scoreText;
+    Text healthText;
+    Text manaText;
+    bool bullet;
 
     void Awake()
     {
         _instance = this;
         scoreText = GameObject.Find("Score").GetComponent<Text>();
         healthText = GameObject.Find("Health").GetComponent<Text>();
+        manaText = GameObject.Find("Mana").GetComponent<Text>();
     }
 
 
@@ -56,6 +59,7 @@ public class TestManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         healthText.text = string.Format("Health: {0}", player.health.ToString());
+        manaText.text = string.Format("Mana: {0}", player.mana.ToString());
     }
 
     EventArgs makeArgs()
@@ -91,5 +95,19 @@ public class TestManager : MonoBehaviour
         setScore();
     }
 
+    public bool spawnBullet()
+    {
+        if (!bullet)
+        {
+            bullet = true;
+            return true;
+        }
+        return false;
+    }
+
+    public void destroyBullet()
+    {
+        bullet = false;
+    }
 }
 

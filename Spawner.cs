@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour {
 
         if (spawn)
         {
-            Instantiate(enemy, transform.position, transform.rotation);
+            //Instantiate(enemy, transform.position, transform.rotation);
 
         }
 
