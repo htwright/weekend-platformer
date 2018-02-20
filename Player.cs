@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.tag == "bullet")
         {
-            TakeDamage(BulletScript.FindObjectOfType<BulletScript>().damage);
+            takeDamage(BulletScript.FindObjectOfType<BulletScript>().damage);
         }
 
     }
