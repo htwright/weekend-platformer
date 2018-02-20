@@ -8,7 +8,6 @@ using models;
 
 public class Player : MonoBehaviour
 {
-
     public Vector3 position;
     public float topSpeed = 10f;
     private Rigidbody2D rb2d;
@@ -24,15 +23,14 @@ public class Player : MonoBehaviour
     float groundRadius = 1.2f;
     public LayerMask whatIsGround;
 
-    //public int health = 20;
-    //public int maxHealth = 20;
-    //public float maxMana = 20f;
-    //public float mana;
+
+
+    int regenFrequency = 90;
+    public float resistance = 1f;
+
     public Health health;
     public Mana mana;
-    int regenFrequency = 90;
     
-    // Use this for initialization
 
     
 
@@ -46,32 +44,22 @@ public class Player : MonoBehaviour
         initialPosition = rb2d.position;
         rb2d.freezeRotation = true;
         mana = new Mana();
-        health = new Health();
+        health = new Health()
+        {
+            Resistance = resistance
+        };
     }
 
     void Update()
     {
+        if (health.Dead) die();
         if(Input.GetKeyDown(KeyCode.Space))
         {
             jump();
         }
         mana.regen();
         health.regen();
-        if(Time.frameCount % regenFrequency == 0)
-        {
-            //if (mana < maxMana)
-            //{
-            //    mana += 1.5f;
-            //}
-            //else
-            //{
-            //    mana = maxMana;
-            //}
-            //if(health < maxHealth)
-            //{
-            //    health += 1;
-            //}
-        }
+
     }
 
     void FixedUpdate()
@@ -91,8 +79,14 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "enemy")
         {
-            takeDamage();
+            takeDamage(10f);
         }
+
+        if (collision.gameObject.tag == "bullet")
+        {
+            TakeDamage(BulletScript.FindObjectOfType<BulletScript>().damage);
+        }
+
     }
 
     void takeDamage(float amount = 1f)
@@ -133,6 +127,12 @@ public class Player : MonoBehaviour
         if(Time.frameCount % 17 == 0)
         {
         }
+    }
+
+    void die()
+    {
+        transform.position = initialPosition;
+        health.respawn();
     }
 
 }

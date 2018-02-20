@@ -91,10 +91,11 @@ namespace models
             Max = defaultMax;
         }
 
-        public Health(float max, float regenAmount, float regenRate)
+        public Health(float max, float resistance, float regenAmount, float regenRate)
         {
             Count = max;
             Max = max;
+            Resistance = resistance;
             RegenAmount = regenAmount;
             RegenRate = regenRate;
         }
@@ -102,13 +103,13 @@ namespace models
         float defaultMax = 20;
         float defaultRegenRate = 90;
         float defaultRegenAmount = 2F;
+        float defaultResistance = 0;
+
+        public bool Dead = false;
 
 
-        public bool dead = false;
 
-
-
-
+        public float Resistance { get; set; }
         public float Count { get; set; }
         public float Max { get; set; }
 
@@ -118,12 +119,13 @@ namespace models
 
         public bool spend(float amount)
         {
+            amount = amount - Resistance;
             if (Count > amount)
             {
                 Count -= amount;
                 return true;
             }
-            dead = true;
+            Dead = true;
             return false;
         }
 
@@ -134,6 +136,12 @@ namespace models
                 Count += RegenAmount;
                 if (Count > Max) Count = Max;
             }
+        }
+
+        public void respawn()
+        {
+            Count = Max;
+            Dead = false;
         }
 
     }

@@ -9,13 +9,16 @@ public class Enemy : MonoBehaviour
     GameObject player;
 
     public int pointValue = 10;
-    public float maxHealth = 10;
     public int Id { get; set; }
     public int aggroRange = 10;
     bool aggroed = false;
     public float moveSpeed = 0.5f;
+
     int regenFrequency = 180;
     float regenAmount = 1f;
+    public float maxHealth = 10;
+    public float resistance = 0;
+
     Health health; 
     // Use this for initialization
     void Start()
@@ -23,7 +26,7 @@ public class Enemy : MonoBehaviour
         gameObject.tag = "enemy";
         TestManager.onEnemyHit += Damage;
         Id = transform.GetInstanceID();
-        health = new Health(maxHealth, regenAmount, regenFrequency);
+        health = new Health(maxHealth, resistance, regenAmount, regenFrequency);
     }
 
 
@@ -41,7 +44,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (health.dead) die();
+        if (health.Dead) die();
         health.regen();
         Debug.Log(health.Count);
     }
