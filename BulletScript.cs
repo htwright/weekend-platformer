@@ -11,7 +11,7 @@ public class BulletScript : MonoBehaviour {
     float spawnTime;
     float endTime;
 
-    public int damage = 5;
+    public float damage = 10f;
 
 
 	// Use this for initialization

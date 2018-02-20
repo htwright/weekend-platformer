@@ -8,20 +8,22 @@ public class Enemy : MonoBehaviour
 
     GameObject player;
 
-    public int maxHealth = 10;
+    public int pointValue = 10;
+    public float maxHealth = 10;
     public int Id { get; set; }
     public int aggroRange = 10;
     bool aggroed = false;
     public float moveSpeed = 0.5f;
-    int health = 10;
     int regenFrequency = 180;
-
+    float regenAmount = 1f;
+    Health health; 
     // Use this for initialization
     void Start()
     {
         gameObject.tag = "enemy";
         TestManager.onEnemyHit += Damage;
         Id = transform.GetInstanceID();
+        health = new Health(maxHealth, regenAmount, regenFrequency);
     }
 
 
@@ -39,10 +41,9 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if(Time.frameCount % regenFrequency == 0)
-        {
-            health += 1;
-        }
+        if (health.dead) die();
+        health.regen();
+        Debug.Log(health.Count);
     }
 
 
@@ -51,8 +52,6 @@ public class Enemy : MonoBehaviour
     {
 
         transform.GetComponent<Renderer>().material.color = color;
-        TakeDamage(10);
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -60,8 +59,7 @@ public class Enemy : MonoBehaviour
         if(collision.gameObject.name == "Player")
         {
             //Debug.Log("MARIO'D");
-            TakeDamage(10);
-            Destroy(gameObject);
+            TakeDamage(health.Max);
         }
         if(collision.gameObject.tag == "bullet")
         {
@@ -69,16 +67,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void TakeDamage(int damage)
+    void TakeDamage(float damage)
     {
         var args = new EventArgs()
         {
-            Damage = maxHealth,
-            Id = Id
+            Damage = damage,
+            Id = Id,
+            PointValue = pointValue
         };
-        health -= damage;
-        if (health == 0) Destroy(gameObject);
         onEnemyEvent(args);
+ 
+        health.spend(damage);
+
+    }
+
+    void die()
+    {
+        Destroy(gameObject);
     }
 
 }

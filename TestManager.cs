@@ -30,7 +30,7 @@ public class TestManager : MonoBehaviour
 
     public delegate void ChangeEnemyColor(Color color, EventArgs eventArgs);
     public static event ChangeEnemyColor onEnemyHit;
-    public int count;
+    public float count;
     Player player;
     Text scoreText;
     Text healthText;
@@ -58,8 +58,8 @@ public class TestManager : MonoBehaviour
     void Update()
     {
         player = FindObjectOfType<Player>();
-        healthText.text = string.Format("Health: {0}", player.health.ToString());
-        manaText.text = string.Format("Mana: {0}", player.mana.ToString());
+        healthText.text = string.Format("Health: {0}", player.health.Count.ToString());
+        manaText.text = string.Format("Mana: {0}", player.mana.Count.ToString());
     }
 
     EventArgs makeArgs()
@@ -91,7 +91,7 @@ public class TestManager : MonoBehaviour
 
     void updateDamage(EventArgs args)
     {
-        count += args.Damage;
+        count += args.PointValue;
         setScore();
     }
 

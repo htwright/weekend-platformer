@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 using UnityStandardAssets._2D;
 using UnityStandardAssets.CrossPlatformInput;
-
+using models;
 
 public class Player : MonoBehaviour
 {
@@ -24,10 +24,12 @@ public class Player : MonoBehaviour
     float groundRadius = 1.2f;
     public LayerMask whatIsGround;
 
-    public int health = 20;
-    public int maxHealth = 20;
-    public float maxMana = 20f;
-    public float mana;
+    //public int health = 20;
+    //public int maxHealth = 20;
+    //public float maxMana = 20f;
+    //public float mana;
+    public Health health;
+    public Mana mana;
     int regenFrequency = 90;
     
     // Use this for initialization
@@ -42,6 +44,9 @@ public class Player : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         initialPosition = rb2d.position;
+        rb2d.freezeRotation = true;
+        mana = new Mana();
+        health = new Health();
     }
 
     void Update()
@@ -50,20 +55,22 @@ public class Player : MonoBehaviour
         {
             jump();
         }
+        mana.regen();
+        health.regen();
         if(Time.frameCount % regenFrequency == 0)
         {
-            if (mana < maxMana)
-            {
-                mana += 1.5f;
-            }
-            else
-            {
-                mana = maxMana;
-            }
-            if(health < maxHealth)
-            {
-                health += 1;
-            }
+            //if (mana < maxMana)
+            //{
+            //    mana += 1.5f;
+            //}
+            //else
+            //{
+            //    mana = maxMana;
+            //}
+            //if(health < maxHealth)
+            //{
+            //    health += 1;
+            //}
         }
     }
 
@@ -88,10 +95,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    void takeDamage()
+    void takeDamage(float amount = 1f)
     {
         gameObject.GetComponent<Renderer>().material.color = Color.red;
-        health--;
+        var alive = health.spend(amount);
+        if (!alive)
+        {
+            //die
+        }
 
     }
 
@@ -106,9 +117,12 @@ public class Player : MonoBehaviour
         } else if (!doubleJump)
         {
             //jumpforce at higher levels makes earlier double jumps crazy, but lower levels make later double jumps ineffective.
-            doubleJump = true;
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce/2));
-            mana -= 10f;
+            if (mana.spend(10f))
+            {
+                doubleJump = true;
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce / 2));
+
+            }
         }
 
     }
